@@ -13,7 +13,7 @@ import com.tripnet.entity.Account;
 import com.tripnet.service.ICommonService;
 
 @Controller
-@RequestMapping("")
+@RequestMapping("user")
 public class AccountController {
 	@Autowired
 	private ICommonService<Account> accountService;
