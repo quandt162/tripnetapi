@@ -46,4 +46,10 @@ public class AccountDAO implements ICommonDAO<Account>{
 		
 	}
 
+	@Override
+	public boolean articleExists(String title, String category) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

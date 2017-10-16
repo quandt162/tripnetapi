@@ -9,5 +9,5 @@ public interface ICommonDAO<T> {
     void add(T object);
     void update(T object);
     void delete(int objectId);
-    //boolean articleExists(String title, String category);
+    boolean articleExists(String title, String category);
 }
