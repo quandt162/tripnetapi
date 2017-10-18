@@ -46,8 +46,7 @@ public class AccountDAO implements ICommonDAO<Account>, IAccountDAO<Account>{
 		acc.setDeleted(account.getDeleted());
 		//acc.getCreateTime();
 		acc.setRoleId(account.getRoleId());
-		entityManager.flush();
-		
+		entityManager.flush();		
 	}
 
 	@Override

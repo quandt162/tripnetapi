@@ -24,7 +24,7 @@ public class AccountController {
 	private ICommonService<Account> commonService;
 	
 	@GetMapping("account/{id}")
-	public ResponseEntity<Account> getArticleById(@PathVariable("id") Integer id) {
+	public ResponseEntity<Account> getAccountById(@PathVariable("id") Integer id) {
 		Account account = commonService.getOneById(id);
 		return new ResponseEntity<Account>(account, HttpStatus.OK);
 	}
@@ -36,7 +36,7 @@ public class AccountController {
 	}
 	
 	@PostMapping("account")
-	public ResponseEntity<Void> addArticle(@RequestBody Account account, UriComponentsBuilder builder) {
+	public ResponseEntity<Void> addAccount(@RequestBody Account account, UriComponentsBuilder builder) {
         boolean flag = commonService.add(account);
         if (flag == false) {
         	return new ResponseEntity<Void>(HttpStatus.CONFLICT);
@@ -47,7 +47,7 @@ public class AccountController {
 	}
 	
 	@PutMapping("account")
-	public ResponseEntity<Account> updateArticle(@RequestBody Account account) {
+	public ResponseEntity<Account> updateAccount(@RequestBody Account account) {
 		commonService.update(account);
 		return new ResponseEntity<Account>(account, HttpStatus.OK);
 	}
