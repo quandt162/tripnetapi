@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tripnet.dao.ArticleDAO;
+import com.tripnet.dao.IArticleDAO;
 import com.tripnet.dao.ICommonDAO;
 import com.tripnet.entity.Article;
 
@@ -13,6 +13,8 @@ import com.tripnet.entity.Article;
 public class ArticleService implements ICommonService<Article> {
 	@Autowired
 	private ICommonDAO<Article> commonDAO;
+	@Autowired
+	private IArticleDAO<Article> articleDAO;
 	
 	@Override
 	public Article getOneById(int articleId) {
@@ -27,7 +29,7 @@ public class ArticleService implements ICommonService<Article> {
 	
 	@Override
 	public synchronized boolean add(Article article){
-       if (commonDAO.articleExists(article.getTitle(), article.getCategory())) {
+       if (articleDAO.articleExists(article.getTitle(), article.getCategory())) {
     	   return false;
        } else {
     	   commonDAO.add(article);

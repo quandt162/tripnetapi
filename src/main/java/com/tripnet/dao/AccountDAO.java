@@ -12,7 +12,7 @@ import com.tripnet.entity.Account;
 
 @Transactional
 @Repository
-public class AccountDAO implements ICommonDAO<Account>{
+public class AccountDAO implements ICommonDAO<Account>, IAccountDAO<Account>{
 	@PersistenceContext	
 	private EntityManager entityManager;
 	
@@ -24,19 +24,29 @@ public class AccountDAO implements ICommonDAO<Account>{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Account> getAll() {
-		String hql = "FROM Account";
-		return (List<Account>) entityManager.createQuery(hql).getResultList();
+		String hql = "FROM Account AS acc WHERE acc.deleted = ?";
+		return (List<Account>) entityManager.createQuery(hql).setParameter(1, 1).getResultList();
 	}
 
 	@Override
 	public void add(Account account) {
-		// TODO Auto-generated method stub
+		entityManager.persist(account);
 		
 	}
 
 	@Override
 	public void update(Account account) {
-		// TODO Auto-generated method stub
+		Account acc = getOneById(account.getId());
+		acc.setUserName(account.getUserName());
+		//acc.setEmail(acc.getEmail());
+		acc.setPassword(account.getPassword());
+		acc.setPhotoId(account.getPhotoId());
+		acc.setCredit(account.getCredit());
+		acc.setPoint(account.getPoint());
+		acc.setDeleted(account.getDeleted());
+		//acc.getCreateTime();
+		acc.setRoleId(account.getRoleId());
+		entityManager.flush();
 		
 	}
 
@@ -47,9 +57,11 @@ public class AccountDAO implements ICommonDAO<Account>{
 	}
 
 	@Override
-	public boolean articleExists(String title, String category) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean accountExists(String username, String email) {
+		String hql = "FROM Account AS acc WHERE acc.email = ?";
+		int count = entityManager.createQuery(hql).setParameter(1, email).getResultList().size();
+		return count > 0 ? true : false;
 	}
+
 
 }

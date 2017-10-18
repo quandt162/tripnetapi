@@ -12,7 +12,7 @@ import com.tripnet.entity.Article;
 
 @Transactional
 @Repository
-public class ArticleDAO implements ICommonDAO<Article> {
+public class ArticleDAO implements ICommonDAO<Article>, IArticleDAO<Article> {
 	@PersistenceContext	
 	private EntityManager entityManager;	
 	
@@ -46,6 +46,7 @@ public class ArticleDAO implements ICommonDAO<Article> {
 		entityManager.remove(getOneById(articleId));
 	}
 	
+	@Override
 	public boolean articleExists(String title, String category) {
 		String hql = "FROM Article as atcl WHERE atcl.title = ? and atcl.category = ?";
 		int count = entityManager.createQuery(hql).setParameter(1, title)

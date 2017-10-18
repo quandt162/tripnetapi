@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tripnet.dao.IAccountDAO;
 import com.tripnet.dao.ICommonDAO;
 import com.tripnet.entity.Account;
 
@@ -12,6 +13,8 @@ import com.tripnet.entity.Account;
 public class AccountService implements ICommonService<Account>{
 	@Autowired
 	private ICommonDAO<Account> commonDAO;
+	@Autowired
+	private IAccountDAO<Account> accountDAO;
 	
 	@Override
 	public Account getOneById(int accountId) {
@@ -25,14 +28,18 @@ public class AccountService implements ICommonService<Account>{
 	}	
 
 	@Override
-	public boolean add(Account account) {
-		// TODO Auto-generated method stub
-		return false;
+	public synchronized boolean add(Account account) {
+		if (accountDAO.accountExists(account.getUserName(), account.getEmail())) {
+			return false;
+		} else {
+			commonDAO.add(account);
+			return true;
+		}
 	}
 
 	@Override
 	public void update(Account account) {
-		// TODO Auto-generated method stub
+		commonDAO.update(account);
 		
 	}
 
