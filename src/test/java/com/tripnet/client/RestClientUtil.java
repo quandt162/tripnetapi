@@ -72,12 +72,12 @@ public class RestClientUtil {
         restTemplate.exchange(url, HttpMethod.DELETE, requestEntity, Void.class, 4);        
     }
     
-    public static void main(String args[]) {
-    	RestClientUtil util = new RestClientUtil();
-        //util.getArticleByIdDemo();
-    	//util.getAllArticlesDemo();
-    	//util.addArticleDemo();
-    	util.updateArticleDemo();
-    	//util.deleteArticleDemo();
-    }    
+//    public static void main(String args[]) {
+//    	RestClientUtil util = new RestClientUtil();
+//        //util.getArticleByIdDemo();
+//    	//util.getAllArticlesDemo();
+//    	//util.addArticleDemo();
+//    	util.updateArticleDemo();
+//    	//util.deleteArticleDemo();
+//    }    
 }
