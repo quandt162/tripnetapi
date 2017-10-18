@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.tripnet.entity.Account;
+import com.tripnet.service.IAccountService;
 import com.tripnet.service.ICommonService;
 
 @Controller
@@ -22,6 +23,8 @@ import com.tripnet.service.ICommonService;
 public class AccountController {
 	@Autowired
 	private ICommonService<Account> commonService;
+	@Autowired
+	private IAccountService<Account> accountService;
 	
 	@GetMapping("account/{id}")
 	public ResponseEntity<Account> getAccountById(@PathVariable("id") Integer id) {
@@ -30,10 +33,11 @@ public class AccountController {
 	}
 	
 	@GetMapping("accounts")
-	public ResponseEntity<List<Account>> getAllArticles() {
+	public ResponseEntity<List<Account>> getAllAccounts() {
 		List<Account> list = commonService.getAll();
 		return new ResponseEntity<List<Account>>(list, HttpStatus.OK);
 	}
+	
 	
 	@PostMapping("account")
 	public ResponseEntity<Void> addAccount(@RequestBody Account account, UriComponentsBuilder builder) {
@@ -44,6 +48,17 @@ public class AccountController {
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(builder.path("/article/{id}").buildAndExpand(account.getId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+	}
+	
+	@PostMapping("account/login")
+	public ResponseEntity<List<Account>> login(@RequestBody Account account, UriComponentsBuilder builder) {
+		List<Account> list = accountService.login(account);
+        if (list.isEmpty()) {
+        	return new ResponseEntity<List<Account>>(list, HttpStatus.NO_CONTENT);
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(builder.path("/article/{id}").buildAndExpand(account.getId()).toUri());
+        return new ResponseEntity<List<Account>>(list, HttpStatus.OK);
 	}
 	
 	@PutMapping("account")

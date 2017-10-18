@@ -10,7 +10,7 @@ import com.tripnet.dao.ICommonDAO;
 import com.tripnet.entity.Account;
 
 @Service
-public class AccountService implements ICommonService<Account>{
+public class AccountService implements ICommonService<Account>, IAccountService<Account>{
 	@Autowired
 	private ICommonDAO<Account> commonDAO;
 	@Autowired
@@ -47,6 +47,11 @@ public class AccountService implements ICommonService<Account>{
 	public void delete(int accountId) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<Account> login(Account account) {
+		return accountDAO.checkLogin(account.getEmail(), account.getPassword());
 	}
 
 }

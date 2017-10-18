@@ -61,6 +61,13 @@ public class AccountDAO implements ICommonDAO<Account>, IAccountDAO<Account>{
 		int count = entityManager.createQuery(hql).setParameter(1, email).getResultList().size();
 		return count > 0 ? true : false;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Account> checkLogin(String email, String password) {
+		String hql = "FROM Account AS acc WHERE acc.email = ? AND acc.password = ?";
+		return (List<Account>) entityManager.createQuery(hql).setParameter(1, email).setParameter(2, password).getResultList();
+	}
 
 
 }
