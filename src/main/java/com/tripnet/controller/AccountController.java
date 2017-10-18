@@ -16,17 +16,17 @@ import com.tripnet.service.ICommonService;
 @RequestMapping("user")
 public class AccountController {
 	@Autowired
-	private ICommonService<Account> accountService;
+	private ICommonService<Account> commonService;
 	
 	@GetMapping("account/{id}")
 	public ResponseEntity<Account> getArticleById(@PathVariable("id") Integer id) {
-		Account account = accountService.getOneById(id);
+		Account account = commonService.getOneById(id);
 		return new ResponseEntity<Account>(account, HttpStatus.OK);
 	}
 	
 	@GetMapping("accounts")
 	public ResponseEntity<List<Account>> getAllArticles() {
-		List<Account> list = accountService.getAll();
+		List<Account> list = commonService.getAll();
 		return new ResponseEntity<List<Account>>(list, HttpStatus.OK);
 	}
 }

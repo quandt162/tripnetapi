@@ -22,23 +22,23 @@ import com.tripnet.service.ICommonService;
 @RequestMapping("user")
 public class ArticleController {
 	@Autowired
-	private ICommonService<Article> articleService;
+	private ICommonService<Article> commonService;
 	
 	@GetMapping("article/{id}")
 	public ResponseEntity<Article> getArticleById(@PathVariable("id") Integer id) {
-		Article article = articleService.getOneById(id);
+		Article article = commonService.getOneById(id);
 		return new ResponseEntity<Article>(article, HttpStatus.OK);
 	}
 	
 	@GetMapping("articles")
 	public ResponseEntity<List<Article>> getAllArticles() {
-		List<Article> list = articleService.getAll();
+		List<Article> list = commonService.getAll();
 		return new ResponseEntity<List<Article>>(list, HttpStatus.OK);
 	}
 	
 	@PostMapping("article")
 	public ResponseEntity<Void> addArticle(@RequestBody Article article, UriComponentsBuilder builder) {
-        boolean flag = articleService.add(article);
+        boolean flag = commonService.add(article);
         if (flag == false) {
         	return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
@@ -49,13 +49,13 @@ public class ArticleController {
 	
 	@PutMapping("article")
 	public ResponseEntity<Article> updateArticle(@RequestBody Article article) {
-		articleService.update(article);
+		commonService.update(article);
 		return new ResponseEntity<Article>(article, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("article/{id}")
 	public ResponseEntity<Void> deleteArticle(@PathVariable("id") Integer id) {
-		articleService.delete(id);
+		commonService.delete(id);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}	
 } 

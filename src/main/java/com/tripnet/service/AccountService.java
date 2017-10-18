@@ -11,17 +11,17 @@ import com.tripnet.entity.Account;
 @Service
 public class AccountService implements ICommonService<Account>{
 	@Autowired
-	private ICommonDAO<Account> accountDAO;
+	private ICommonDAO<Account> commonDAO;
 	
 	@Override
 	public Account getOneById(int accountId) {
-		Account obj = accountDAO.getOneById(accountId);
+		Account obj = commonDAO.getOneById(accountId);
 		return obj;
 	}
 	
 	@Override
 	public List<Account> getAll() {
-		return accountDAO.getAll();
+		return commonDAO.getAll();
 	}	
 
 	@Override

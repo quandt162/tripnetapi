@@ -8,7 +8,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>tripnet</name>
-	<description>Spring Boot Demo Project</description>
+	<description>Spring Boot Project</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>

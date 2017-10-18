@@ -12,36 +12,36 @@ import com.tripnet.entity.Article;
 @Service
 public class ArticleService implements ICommonService<Article> {
 	@Autowired
-	private ICommonDAO<Article> articleDAO;
+	private ICommonDAO<Article> commonDAO;
 	
 	@Override
 	public Article getOneById(int articleId) {
-		Article obj = articleDAO.getOneById(articleId);
+		Article obj = commonDAO.getOneById(articleId);
 		return obj;
 	}	
 	
 	@Override
 	public List<Article> getAll(){
-		return articleDAO.getAll();
+		return commonDAO.getAll();
 	}
 	
 	@Override
 	public synchronized boolean add(Article article){
-       if (articleDAO.articleExists(article.getTitle(), article.getCategory())) {
+       if (commonDAO.articleExists(article.getTitle(), article.getCategory())) {
     	   return false;
        } else {
-    	   articleDAO.add(article);
+    	   commonDAO.add(article);
     	   return true;
        }
 	}
 	
 	@Override
 	public void update(Article article) {
-		articleDAO.update(article);
+		commonDAO.update(article);
 	}
 	
 	@Override
 	public void delete(int articleId) {
-		articleDAO.delete(articleId);
+		commonDAO.delete(articleId);
 	}
 }
